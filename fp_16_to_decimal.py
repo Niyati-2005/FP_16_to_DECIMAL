@@ -82,15 +82,15 @@ def convert_fp16_to_decimal(hex_input):
 if __name__ == "__main__":
     print("=" * 80)
     print("IEEE 754 16-bit Half-Precision Float Converter")
-    print("Decimal Array to FP16 Hexadecimal Converter")
+    print("FP16 Hexadecimal to Decimal Converter")
     print("=" * 80)
     
     while True:
-        print("\n--- Input Decimal Array ---")
-        print("Enter decimal values separated by commas (e.g., 0.0, 1.5, -2.5, 3.14)")
+        print("\n--- Input FP16 Hexadecimal Array ---")
+        print("Enter FP16 hex values separated by commas (e.g., 0x0000, 0x3C00, 0xBE00, 0x4200)")
         print("Or type 'quit' to exit:")
         
-        user_input = input("\nEnter decimal array: ").strip()
+        user_input = input("\nEnter FP16 hex array: ").strip()
         
         if user_input.lower() == 'quit':
             print("Exiting...")
@@ -98,28 +98,28 @@ if __name__ == "__main__":
         
         try:
             # Parse user input
-            decimal_strings = user_input.split(',')
-            decimal_array = [float(val.strip()) for val in decimal_strings]
+            hex_strings = user_input.split(',')
+            hex_array = [val.strip() for val in hex_strings]
             
-            # Convert to FP16 hex
-            hex_array = convert_decimal_to_fp16(decimal_array)
+            # Convert to decimal
+            decimal_array = convert_fp16_to_decimal(hex_array)
             
             # Display results
             print("\n" + "=" * 80)
             print("CONVERSION RESULTS")
             print("=" * 80)
-            print(f"\nInput Decimal Array:    {decimal_array}")
-            print(f"Output FP16 Hex Array:  {hex_array}")
+            print(f"\nInput FP16 Hex Array:    {hex_array}")
+            print(f"Output Decimal Array:    {decimal_array}")
             
             # Show detailed mapping
             print("\n--- Detailed Conversion ---")
-            for i, (dec, hex_val) in enumerate(zip(decimal_array, hex_array)):
-                print(f"  [{i}] {dec:12.6f} -> {hex_val}")
+            for i, (hex_val, dec) in enumerate(zip(hex_array, decimal_array)):
+                print(f"  [{i}] {hex_val} -> {dec:12.6f}")
             
             print("\n" + "=" * 80)
             
         except ValueError as e:
-            print(f"\nError: Invalid input. Please enter numbers separated by commas.")
+            print(f"\nError: Invalid input. Please enter hex values in format 0xXXXX separated by commas.")
             print(f"Details: {e}")
         except Exception as e:
             print(f"\nUnexpected error: {e}")
